@@ -1,18 +1,18 @@
 <?php
-/**
- * @author Vladimir Pilipchuk <vovapilipchuk@gmail.com>
- */
-namespace Enum\Tests;
 
-use Enum\Enum;
+declare(strict_types=1);
+
+namespace DarkDevLab\Enum\Tests;
+
+use DarkDevLab\Enum\Enum;
 
 /**
  * Class ExampleEnum
- * @package Enum\Tests
+ * @package DarkDevLab\Enum\Tests
  */
 class ExampleEnum extends Enum
 {
-    const ONE = 1;
-    const TWO = 2;
-    const OTHER = 'other';
+    public const ONE = 1;
+    public const TWO = 2;
+    public const OTHER = 'other';
 }

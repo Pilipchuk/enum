@@ -1,18 +1,20 @@
 <?php
-/**
- * @author Vladimir Pilipchuk <vovapilipchuk@gmail.com>
- */
-namespace Enum\Tests;
+
+declare(strict_types=1);
+
+namespace DarkDevLab\Enum\Tests;
+
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class EnumTest
- * @package Enum\Tests
+ * @package DarkDevLab\Enum\Tests
  */
-class EnumTest extends \PHPUnit_Framework_TestCase
+class EnumTest extends TestCase
 {
-    public function testGetValue()
+    public function testGetValue(): void
     {
-        $enum = new ExampleEnum(ExampleEnum::ONE);
+        $enum = ExampleEnum::get(ExampleEnum::ONE);
         $this->assertEquals(ExampleEnum::ONE, $enum->getValue());
 
         $enum = new ExampleEnum(ExampleEnum::TWO);
@@ -20,6 +22,29 @@ class EnumTest extends \PHPUnit_Framework_TestCase
 
         $enum = new ExampleEnum(ExampleEnum::OTHER);
         $this->assertEquals(ExampleEnum::OTHER, $enum->getValue());
+    }
+
+    public function testGetInvalidValue(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        ExampleEnum::get('unknown');
+    }
+
+    public function testGetList(): void
+    {
+        $this->assertEquals([ExampleEnum::ONE, ExampleEnum::TWO, ExampleEnum::OTHER], ExampleEnum::getList());
+    }
+
+    public function testInSet(): void
+    {
+        $this->assertTrue(ExampleEnum::inSet(ExampleEnum::ONE));
+        $this->assertFalse(ExampleEnum::inSet('unknown'));
+    }
+
+    public function testStringify(): void
+    {
+        $this->assertEquals(ExampleEnum::ONE, (string) ExampleEnum::get(ExampleEnum::ONE));
+        $this->assertEquals(ExampleEnum::OTHER, (string) (new ExampleEnum(ExampleEnum::OTHER)));
     }
 }
 
